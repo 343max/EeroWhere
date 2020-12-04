@@ -11,11 +11,9 @@ export type LoginFlowParamList = {
 
 const Stack = createStackNavigator<LoginFlowParamList>()
 
-export const LoginFlow: FC = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Token" component={TokenScreen} />
-    </Stack.Navigator>
-  )
-}
+export const LoginFlow: FC = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="Login" component={LoginScreen} />
+    <Stack.Screen name="Token" component={TokenScreen} />
+  </Stack.Navigator>
+)

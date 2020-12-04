@@ -1,6 +1,8 @@
 import { NavigationContainer, Theme } from "@react-navigation/native"
 import { useTheme } from "@ui-kitten/components"
 import * as React from "react"
+import { useEero } from "../components/EeroContext"
+import { DeviceListScreen } from "../devices/DeviceListScreen"
 
 import { LoginFlow } from "../login/LoginFlow"
 
@@ -19,9 +21,11 @@ export default function Navigation() {
     },
   }
 
+  const { needsLogin } = useEero()
+
+  const content = needsLogin() ? <LoginFlow /> : <DeviceListScreen />
+
   return (
-    <NavigationContainer theme={navigationTheme}>
-      <LoginFlow />
-    </NavigationContainer>
+    <NavigationContainer theme={navigationTheme}>{content}</NavigationContainer>
   )
 }
