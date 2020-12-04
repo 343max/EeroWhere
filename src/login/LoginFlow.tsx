@@ -1,3 +1,4 @@
+import { Client, Eero } from "@343max/eero-ts"
 import { createStackNavigator } from "@react-navigation/stack"
 import React, { FC } from "react"
 import { LoginScreen } from "./LoginScreen"
@@ -10,9 +11,11 @@ export type LoginFlowParamList = {
 
 const Stack = createStackNavigator<LoginFlowParamList>()
 
-export const LoginFlow: FC = () => (
-  <Stack.Navigator>
-    <Stack.Screen name="Login" component={LoginScreen} />
-    <Stack.Screen name="Token" component={TokenScreen} />
-  </Stack.Navigator>
-)
+export const LoginFlow: FC = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Token" component={TokenScreen} />
+    </Stack.Navigator>
+  )
+}

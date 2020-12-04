@@ -1,9 +1,12 @@
 import { StackScreenProps } from "@react-navigation/stack"
-import { Button, Input, Layout } from "@ui-kitten/components"
+import { Button, Input, Layout, Spinner } from "@ui-kitten/components"
 import { Formik } from "formik"
 import React, { FC, useState } from "react"
 import styled from "styled-components/native"
+import { useEero } from "../components/EeroContext"
+import { FullScreenSpinner } from "../components/FullScreenSpinner"
 import { LoginFlowParamList } from "./LoginFlow"
+import { useSharedToken } from "./SharedToken"
 
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
@@ -23,15 +26,26 @@ type FormValues = {
 export const LoginScreen: FC<StackScreenProps<LoginFlowParamList, "Login">> = ({
   navigation,
 }) => {
-  const onSubmit = () => {
+  const [isLoading, setLoading] = useState(false)
+  const { login } = useEero()
+  const { setSharedToken } = useSharedToken()
+
+  const onSubmit = async ({ username }: FormValues) => {
+    setLoading(true)
+
+    const sessionToken = await login(username)
+    setSharedToken(sessionToken)
+
     navigation.navigate("Token")
   }
 
-  return (
-    <Formik<FormValues> initialValues={{ username: "" }} onSubmit={onSubmit}>
-      {({ values, handleChange, isValid, handleSubmit }) => (
-        <Container>
-          <Layout>
+  if (isLoading) {
+    return <FullScreenSpinner />
+  } else {
+    return (
+      <Formik<FormValues> initialValues={{ username: "" }} onSubmit={onSubmit}>
+        {({ values, handleChange, isValid, handleSubmit }) => (
+          <Container>
             <Input
               placeholder="Email or Phone#"
               value={values.username}
@@ -45,9 +59,9 @@ export const LoginScreen: FC<StackScreenProps<LoginFlowParamList, "Login">> = ({
             >
               Request Token
             </LoginButton>
-          </Layout>
-        </Container>
-      )}
-    </Formik>
-  )
+          </Container>
+        )}
+      </Formik>
+    )
+  }
 }

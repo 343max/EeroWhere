@@ -15,6 +15,7 @@
     "@343max/eero-ts": "^0.1.1",
     "@eva-design/eva": "^2.0.0",
     "@expo/vector-icons": "^12.0.1",
+    "@react-native-community/async-storage": "~1.12.0",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.2",
     "@react-navigation/native": "^5.8.10",
@@ -38,6 +39,7 @@
     "react-native-svg": "12.1.0",
     "react-native-web": "~0.14.8",
     "styled-components": "^5.2.1",
+    "use-between": "^0.0.18",
     "yup": "^0.32.1"
   },
   "devDependencies": {

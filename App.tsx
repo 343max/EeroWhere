@@ -6,6 +6,7 @@ import useCachedResources from "./src/hooks/useCachedResources"
 import useColorScheme from "./src/hooks/useColorScheme"
 import Navigation from "./src/navigation"
 import { ApplicationProvider } from "@ui-kitten/components"
+import { EeroContext } from "./src/components/EeroContext"
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
@@ -17,8 +18,10 @@ export default function App() {
   } else {
     return (
       <ApplicationProvider {...eva} theme={evaScheme}>
-        <Navigation />
-        <StatusBar />
+        <EeroContext>
+          <Navigation />
+          <StatusBar />
+        </EeroContext>
       </ApplicationProvider>
     )
   }
