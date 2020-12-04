@@ -5,8 +5,9 @@ import * as eva from "@eva-design/eva"
 import useCachedResources from "./src/hooks/useCachedResources"
 import useColorScheme from "./src/hooks/useColorScheme"
 import Navigation from "./src/navigation"
-import { ApplicationProvider } from "@ui-kitten/components"
+import { ApplicationProvider, IconRegistry } from "@ui-kitten/components"
 import { EeroContext } from "./src/components/EeroContext"
+import { EvaIconsPack } from "@ui-kitten/eva-icons"
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
@@ -17,12 +18,15 @@ export default function App() {
     return null
   } else {
     return (
-      <ApplicationProvider {...eva} theme={evaScheme}>
-        <EeroContext>
-          <Navigation />
-          <StatusBar />
-        </EeroContext>
-      </ApplicationProvider>
+      <>
+        <IconRegistry icons={EvaIconsPack} />
+        <ApplicationProvider {...eva} theme={evaScheme}>
+          <EeroContext>
+            <Navigation />
+            <StatusBar />
+          </EeroContext>
+        </ApplicationProvider>
+      </>
     )
   }
 }
