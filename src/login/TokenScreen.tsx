@@ -40,7 +40,7 @@ export const TokenScreen: FC<
       onSubmit={onSubmit}
       validationSchema={FormSchema}
     >
-      {({ values, handleChange, isValid, handleSubmit }) => (
+      {({ values, handleChange, isValid, dirty, handleSubmit }) => (
         <Container>
           <Layout>
             <Input
@@ -52,7 +52,7 @@ export const TokenScreen: FC<
             />
             <LoginButton
               size="giant"
-              disabled={!isValid}
+              disabled={!isValid || !dirty}
               onPress={() => handleSubmit()}
             >
               Submit
