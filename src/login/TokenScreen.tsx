@@ -7,7 +7,6 @@ import { LoginFlowParamList } from "./LoginFlow"
 import * as Yup from "yup"
 import { FullScreenSpinner } from "../components/FullScreenSpinner"
 import { useEero } from "../components/EeroContext"
-import { useSharedToken } from "./SharedToken"
 
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
@@ -36,13 +35,12 @@ export const TokenScreen: FC<
   StackScreenProps<LoginFlowParamList, "Token">
 > = () => {
   const [isLoading, setLoading] = useState(false)
-  const { sharedToken } = useSharedToken()
 
   const { loginVerify } = useEero()
 
   const onSubmit = async ({ authToken }: FormValues) => {
     setLoading(true)
-    await loginVerify(sharedToken!, authToken!)
+    await loginVerify(authToken!)
     setLoading(false)
   }
 

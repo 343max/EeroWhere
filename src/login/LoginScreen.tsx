@@ -6,7 +6,6 @@ import styled from "styled-components/native"
 import { useEero } from "../components/EeroContext"
 import { FullScreenSpinner } from "../components/FullScreenSpinner"
 import { LoginFlowParamList } from "./LoginFlow"
-import { useSharedToken } from "./SharedToken"
 
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
@@ -28,15 +27,14 @@ export const LoginScreen: FC<StackScreenProps<LoginFlowParamList, "Login">> = ({
 }) => {
   const [isLoading, setLoading] = useState(false)
   const { login } = useEero()
-  const { setSharedToken } = useSharedToken()
 
   const onSubmit = async ({ username }: FormValues) => {
     setLoading(true)
 
-    const sessionToken = await login(username)
-    setSharedToken(sessionToken)
+    await login(username)
 
     navigation.navigate("Token")
+    setLoading(false)
   }
 
   if (isLoading) {

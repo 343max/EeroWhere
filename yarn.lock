@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@343max/eero-ts@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@343max/eero-ts/-/eero-ts-0.1.1.tgz#8e47e43943622966d6961c5cd57c671ccf8c7380"
-  integrity sha512-ehr0m48BwdckzfTrOCqOOojIiGIFxu6+WSS86dZwYod3RWmyt9uwv/vhayQixMRMZqIS/84cD/8cTIDHRneIsA==
+"@343max/eero-ts@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@343max/eero-ts/-/eero-ts-0.1.3.tgz#1cf93fa505fec4e91c4d66de1de9d52aae62cd38"
+  integrity sha512-TqyiNRwlaICJPSABT7aJ3hFbs6M2DU3Cei5/XZNAYcKK8AMA60utP+1q7nHsHGNdV/vxVboWWOqeJGZ0hztgIQ==
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.8.3", "@babel/code-frame@~7.10.4":
   version "7.10.4"
@@ -7826,11 +7826,6 @@ url-parse@^1.4.4:
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
-
-use-between@^0.0.18:
-  version "0.0.18"
-  resolved "https://registry.yarnpkg.com/use-between/-/use-between-0.0.18.tgz#287e7286f89875f87cc2f64817d62ad689822993"
-  integrity sha512-AcURSNnxI7jMBYe/jfzKNfEtZEHJPmM7dHOu43BYqboZXito+pIQxt2cmKMB0AVKshJELCSfznaYIqnOYNtg+A==
 
 use-subscription@^1.0.0:
   version "1.5.1"
