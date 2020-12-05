@@ -7,11 +7,12 @@ import { LoginFlowParamList } from "./LoginFlow"
 import * as Yup from "yup"
 import { FullScreenSpinner } from "../components/FullScreenSpinner"
 import { useEero } from "../components/EeroContext"
+import { ModalSpinner } from "../components/ModalSpinner"
+import { ErrorTooltip } from "../components/ErrorTooltip"
 
 const Container = styled.KeyboardAvoidingView`
   flex: 1;
   align-content: center;
-  justify-content: center;
   margin: 30px;
 `
 
@@ -21,12 +22,8 @@ const LoginButton = styled(Button)`
 
 const FormSchema = Yup.object({
   authToken: Yup.string()
-    .test(
-      "Digits only",
-      "Token must be numeric",
-      (v) => (v ?? "").match(/^[0-9]+$/) !== null
-    )
-    .length(6),
+    .required()
+    .matches(/^[0-9]{6,6}$/, "Verification code with 6 digits"),
 })
 
 type FormValues = Yup.InferType<typeof FormSchema>
@@ -35,45 +32,52 @@ export const TokenScreen: FC<
   StackScreenProps<LoginFlowParamList, "Token">
 > = () => {
   const [isLoading, setLoading] = useState(false)
+  const [error, setError] = useState<Error | null>(null)
 
   const { loginVerify } = useEero()
 
   const onSubmit = async ({ authToken }: FormValues) => {
     setLoading(true)
-    await loginVerify(authToken!)
-    setLoading(false)
+    try {
+      await loginVerify(authToken)
+    } catch (error) {
+      setLoading(false)
+      setError(error)
+    }
   }
 
-  if (isLoading) {
-    return <FullScreenSpinner />
-  } else {
-    return (
+  return (
+    <Container>
+      <ModalSpinner loading={isLoading} />
       <Formik<FormValues>
         initialValues={{ authToken: "" }}
         onSubmit={onSubmit}
         validationSchema={FormSchema}
+        validateOnMount={true}
       >
-        {({ values, handleChange, isValid, dirty, handleSubmit }) => (
-          <Container>
-            <Layout>
-              <Input
-                placeholder="Token"
-                value={values.authToken}
-                onChangeText={handleChange("authToken")}
-                returnKeyType="send"
-                keyboardType="number-pad"
-              />
+        {({ values, handleChange, isValid, handleSubmit }) => (
+          <Layout>
+            <Input
+              placeholder="Token"
+              value={values.authToken}
+              onChangeText={handleChange("authToken")}
+              returnKeyType="send"
+              keyboardType="number-pad"
+              autoFocus={true}
+              onSubmitEditing={() => handleSubmit()}
+            />
+            <ErrorTooltip error={error} onBackdropPress={() => setError(null)}>
               <LoginButton
                 size="giant"
-                disabled={!isValid || !dirty}
+                disabled={!isValid}
                 onPress={() => handleSubmit()}
               >
                 Submit
               </LoginButton>
-            </Layout>
-          </Container>
+            </ErrorTooltip>
+          </Layout>
         )}
       </Formik>
-    )
-  }
+    </Container>
+  )
 }
