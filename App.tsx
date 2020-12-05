@@ -8,6 +8,7 @@ import Navigation from "./src/navigation"
 import { ApplicationProvider, IconRegistry } from "@ui-kitten/components"
 import { EeroContext } from "./src/components/EeroContext"
 import { EvaIconsPack } from "@ui-kitten/eva-icons"
+import { MyTheme } from "./src/MyTheme"
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
@@ -20,7 +21,7 @@ export default function App() {
     return (
       <>
         <IconRegistry icons={EvaIconsPack} />
-        <ApplicationProvider {...eva} theme={evaScheme}>
+        <ApplicationProvider {...eva} theme={{ ...evaScheme, ...MyTheme }}>
           <EeroContext>
             <Navigation />
             <StatusBar />
